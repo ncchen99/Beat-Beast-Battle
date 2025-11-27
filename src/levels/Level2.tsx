@@ -62,7 +62,7 @@ export default function Level2() {
             {/* 題目 */}
             <div className="pixel-border p-3 mb-2 bg-pixel-bg text-center">
                 <p className="text-pixel-sm mb-1">請造句：</p>
-                <p className="text-pixel-base text-pixel-red">一 _ 就 _</p>
+                <p className="text-pixel-base text-pixel-red">一 __ 就 __</p>
             </div>
 
             {/* 設定與輪到誰 */}
