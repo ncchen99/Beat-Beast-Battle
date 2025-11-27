@@ -44,6 +44,7 @@ export interface GameState {
     setLevel: (level: number) => void
     setScore: (level: number, winner: Team) => void
     resetGame: () => void
+    resetLevelScore: (level: number) => void
     generateAnimalSequence: (allowRepeat: boolean, useRealPhotos: boolean, ensureAdjacent?: boolean, minRepeats?: number, limitToAnimeAnimals?: boolean) => void
     setRhythmState: (state: Partial<RhythmState>) => void
     toggleBGM: () => void
@@ -196,6 +197,15 @@ export const useGameStore = create<GameState>()(
                     scores: initialScores,
                     rhythmState: initialRhythmState,
                 }),
+
+            resetLevelScore: (level) =>
+                set((state) => ({
+                    scores: {
+                        ...state.scores,
+                        [`level${level}`]: null,
+                    },
+                    rhythmState: initialRhythmState,
+                })),
 
             generateAnimalSequence: (allowRepeat, useRealPhotos, ensureAdjacent = false, minRepeats = 1, limitToAnimeAnimals = false) =>
                 set((state) => {
