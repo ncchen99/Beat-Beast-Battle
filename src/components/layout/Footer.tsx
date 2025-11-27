@@ -1,7 +1,7 @@
 import { useGameStore } from '../../store/gameStore'
 
 export default function Footer() {
-    const { currentLevel, setLevel, resetGame } = useGameStore()
+    const { currentLevel, setLevel, resetLevelScore } = useGameStore()
 
     return (
         <footer className="pixel-border bg-white p-2 shadow-pixel mb-2">
@@ -11,7 +11,7 @@ export default function Footer() {
                     <div className="flex-shrink-0">
                         {currentLevel > 0 && currentLevel < 6 ? (
                             <button
-                                onClick={resetGame}
+                                onClick={() => resetLevelScore(currentLevel)}
                                 className="pixel-button text-pixel-sm bg-pixel-yellow"
                             >
                                 🔄 重新開始
