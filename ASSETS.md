@@ -4,29 +4,30 @@
 
 ```
 project/
-├── audios/
-│   └── music.mp3           (2.6 MB) - 背景音樂
-├── font/
-│   └── Cubic_11.woff2      (390 KB) - 俐方體11號字體
-└── images/
-    ├── anime/              動畫版動物圖片(第三關使用)
-    │   ├── bear.png        (535 KB) - 熊
-    │   ├── bird.png        (516 KB) - 鳥
-    │   ├── chicken.png     (528 KB) - 雞
-    │   ├── dog.png         (517 KB) - 狗
-    │   └── pig.png         (517 KB) - 豬
-    └── real/               真實版動物圖片(第四、五關使用)
-        ├── bear.png        (447 KB) - 熊
-        ├── bird.png        (399 KB) - 鳥
-        ├── chicken.png     (293 KB) - 雞
-        ├── cow.png         (483 KB) - 牛
-        ├── dog.png         (483 KB) - 狗
-        ├── horse.png       (372 KB) - 馬
-        ├── pig.png         (380 KB) - 豬
-        ├── rabbit.png      (349 KB) - 兔子
-        ├── sheep.png       (411 KB) - 羊
-        ├── snake.png       (308 KB) - 蛇
-        └── tiger.png       (611 KB) - 老虎
+├── public/
+│   ├── audios/
+│   │   └── music.mp3           (2.6 MB) - 背景音樂
+│   ├── font/
+│   │   └── Cubic_11.woff2      (390 KB) - 俐方體11號字體
+│   └── images/
+│       ├── anime/              動畫版動物圖片(第三關使用)
+│       │   ├── bear.png        (535 KB) - 熊
+│       │   ├── bird.png        (516 KB) - 鳥
+│       │   ├── chicken.png     (528 KB) - 雞
+│       │   ├── dog.png         (517 KB) - 狗
+│       │   └── pig.png         (517 KB) - 豬
+│       └── real/               真實版動物圖片(第四、五關使用)
+│           ├── bear.png        (447 KB) - 熊
+│           ├── bird.png        (399 KB) - 鳥
+│           ├── chicken.png     (293 KB) - 雞
+│           ├── cow.png         (483 KB) - 牛
+│           ├── dog.png         (483 KB) - 狗
+│           ├── horse.png       (372 KB) - 馬
+│           ├── pig.png         (380 KB) - 豬
+│           ├── rabbit.png      (349 KB) - 兔子
+│           ├── sheep.png       (411 KB) - 羊
+│           ├── snake.png       (308 KB) - 蛇
+│           └── tiger.png       (611 KB) - 老虎
 ```
 
 ## ✅ 整合狀態
