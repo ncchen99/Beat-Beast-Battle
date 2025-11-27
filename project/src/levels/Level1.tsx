@@ -7,6 +7,7 @@ export default function Level1() {
     const [currentTeam, setCurrentTeam] = useState<'A' | 'B'>('A')
     const [isActive, setIsActive] = useState(false)
     const [duration, setDuration] = useState(5)
+    const [durationInput, setDurationInput] = useState('5')
     // 用於強制重置 Timer 的 key
     const [timerKey, setTimerKey] = useState(0)
 
@@ -20,6 +21,21 @@ export default function Level1() {
         // B隊答錯，A隊獲勝
         setScore(1, 'A')
         setIsActive(false)
+    }
+
+    const handleDurationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setDurationInput(e.target.value)
+    }
+
+    const handleDurationBlur = () => {
+        let num = Number(durationInput)
+        if (isNaN(num)) {
+            num = 5
+        } else {
+            num = Math.max(1, Math.min(60, num))
+        }
+        setDuration(num)
+        setDurationInput(num.toString())
     }
 
     const handleStart = () => {
@@ -59,9 +75,11 @@ export default function Level1() {
                 <div className="flex items-center">
                     <label className="text-pixel-xs mr-1">秒數:</label>
                     <input
-                        type="number"
-                        value={duration}
-                        onChange={(e) => setDuration(Math.max(1, Number(e.target.value)))}
+                        type="text"
+                        inputMode="numeric"
+                        value={durationInput}
+                        onChange={handleDurationChange}
+                        onBlur={handleDurationBlur}
                         className="pixel-border w-10 text-center text-pixel-xs"
                         disabled={isActive}
                     />

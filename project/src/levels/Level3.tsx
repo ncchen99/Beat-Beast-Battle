@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useGameStore } from '../store/gameStore'
 import RhythmGrid from '../components/game/RhythmGrid'
 
@@ -8,6 +8,8 @@ export default function Level3() {
     const [currentTeam, setCurrentTeam] = useState<'A' | 'B'>('A')
     const [previousTeam, setPreviousTeam] = useState<'A' | 'B'>('B') // 追踪前一個隊伍
     const [bpm, setBpm] = useState(195)
+    const [bpmInput, setBpmInput] = useState('195')
+    const lastSwitchBeatRef = useRef(0)
 
     useEffect(() => {
         // 生成動物序列 (確保相鄰重複, 使用動畫版, 至少2組重複)
@@ -20,12 +22,16 @@ export default function Level3() {
 
         const currentBeat = rhythmState.currentBeat
         // 當擊拍重新回到01，表示一輮結束
-        if (currentBeat === 1 && rhythmState.phase === 'prepare') {
+        if (currentBeat === 1 && rhythmState.phase === 'prepare' && lastSwitchBeatRef.current !== 1) {
+            lastSwitchBeatRef.current = 1 // 標記此拍已處理
+
             // 生成新的動物序列 (至少2組重複)
             generateAnimalSequence(true, false, true, 2)
             // 記錄前一隊並換隊
             setPreviousTeam(currentTeam)
             setCurrentTeam(prev => prev === 'A' ? 'B' : 'A')
+        } else if (currentBeat !== 1) {
+            lastSwitchBeatRef.current = 0 // 重置標記
         }
     }, [rhythmState.currentBeat, rhythmState.phase, isPlaying, generateAnimalSequence, currentTeam])
 
@@ -37,7 +43,20 @@ export default function Level3() {
         setIsPlaying(false)
     }
 
+    const handleBpmChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setBpmInput(e.target.value)
+    }
 
+    const handleBpmBlur = () => {
+        let num = Number(bpmInput)
+        if (isNaN(num)) {
+            num = 195
+        } else {
+            num = Math.max(60, Math.min(300, num))
+        }
+        setBpm(num)
+        setBpmInput(num.toString())
+    }
 
     return (
         <div className="pixel-card max-w-4xl w-full">
@@ -52,9 +71,11 @@ export default function Level3() {
                 <div className="flex items-center">
                     <label className="text-pixel-xs mr-1">BPM:</label>
                     <input
-                        type="number"
-                        value={bpm}
-                        onChange={(e) => setBpm(Math.max(60, Number(e.target.value)))}
+                        type="text"
+                        inputMode="numeric"
+                        value={bpmInput}
+                        onChange={handleBpmChange}
+                        onBlur={handleBpmBlur}
                         className="pixel-border w-12 text-center text-pixel-xs"
                         disabled={isPlaying}
                     />

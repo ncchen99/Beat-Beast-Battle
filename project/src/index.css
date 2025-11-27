@@ -33,6 +33,17 @@
     display: flex;
     flex-direction: column;
   }
+
+  /* 隱藏數字輸入框的上下箭頭 */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
 }
 
 /* 像素風格元件 */
