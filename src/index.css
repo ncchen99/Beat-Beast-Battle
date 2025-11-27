@@ -24,8 +24,8 @@
     margin: 0;
     padding: 0;
     overflow-x: hidden;
-    font-size: 10px;
-    /* 縮小基礎字體 */
+    font-size: 16px;
+    /* 適合平板的基礎字體 */
   }
 
   #root {
@@ -49,48 +49,48 @@
 /* 像素風格元件 */
 @layer components {
   .pixel-border {
-    border: 1px solid theme('colors.pixel.border');
+    border: 2px solid theme('colors.pixel.border');
     image-rendering: pixelated;
   }
 
   .pixel-button {
-    @apply pixel-border bg-white px-2 py-1 shadow-pixel;
+    @apply pixel-border bg-white px-4 py-2 shadow-pixel;
     @apply transition-all duration-100;
     @apply hover:brightness-105 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-pixel-lg;
     @apply active:translate-x-0 active:translate-y-0 active:shadow-none;
-    font-size: 10px;
-    line-height: 1.2;
+    font-size: 18px;
+    line-height: 1.3;
   }
 
   .pixel-card {
-    @apply pixel-border bg-white p-3 shadow-pixel;
+    @apply pixel-border bg-white p-4 shadow-pixel;
   }
 
   /* 紅框指示器 */
   .red-frame {
     position: absolute;
-    border: 3px solid theme('colors.pixel.red');
+    border: 4px solid theme('colors.pixel.red');
     pointer-events: none;
     transition: all 0.1s linear;
-    box-shadow: 0 0 0 1px rgba(255, 51, 51, 0.3);
+    box-shadow: 0 0 0 2px rgba(255, 51, 51, 0.3);
     inset: 0;
   }
 
   /* 動物框選指示器（非紅色，用於"跟著念"階段） */
   .animal-frame {
     position: absolute;
-    border: 3px solid #FFD700;
+    border: 4px solid #FFD700;
     /* 金黃色 */
     pointer-events: none;
     transition: all 0.1s linear;
-    box-shadow: 0 0 0 1px rgba(255, 215, 0, 0.5);
+    box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.5);
     inset: 0;
   }
 
   /* 動物格子 */
   .animal-grid {
-    @apply grid grid-cols-4 gap-1;
-    @apply md:gap-2;
+    @apply grid grid-cols-4 gap-2;
+    @apply md:gap-3;
   }
 
   .animal-cell {
@@ -104,35 +104,35 @@
   }
 }
 
-/* 工具類 - 大幅縮小字體尺寸 */
+/* 工具類 - 適合平板的字體尺寸 */
 @layer utilities {
   .text-pixel-xs {
-    font-size: 6px;
-    line-height: 1.3;
+    font-size: 14px;
+    line-height: 1.4;
   }
 
   .text-pixel-sm {
-    font-size: 8px;
-    line-height: 1.3;
+    font-size: 18px;
+    line-height: 1.4;
   }
 
   .text-pixel-base {
-    font-size: 10px;
-    line-height: 1.3;
+    font-size: 20px;
+    line-height: 1.4;
   }
 
   .text-pixel-lg {
-    font-size: 12px;
-    line-height: 1.3;
+    font-size: 24px;
+    line-height: 1.4;
   }
 
   .text-pixel-xl {
-    font-size: 14px;
-    line-height: 1.3;
+    font-size: 28px;
+    line-height: 1.4;
   }
 
   .text-pixel-2xl {
-    font-size: 16px;
-    line-height: 1.3;
+    font-size: 32px;
+    line-height: 1.4;
   }
 }

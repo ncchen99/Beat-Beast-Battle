@@ -60,30 +60,26 @@ export default function Level3() {
 
     return (
         <div className="pixel-card max-w-4xl w-full">
-            <h2 className="text-pixel-lg text-center mb-1 text-pixel-orange">
-                第三關：說動物挑戰
-            </h2>
-
             <div className="flex justify-center items-center gap-4 mb-2">
-                <p className="text-pixel-xs opacity-70">
+                <p className="text-pixel-sm opacity-70">
                     動畫版 | 確保重複(2組)
                 </p>
                 <div className="flex items-center">
-                    <label className="text-pixel-xs mr-1">BPM:</label>
+                    <label className="text-pixel-sm mr-1">BPM:</label>
                     <input
                         type="text"
                         inputMode="numeric"
                         value={bpmInput}
                         onChange={handleBpmChange}
                         onBlur={handleBpmBlur}
-                        className="pixel-border w-12 text-center text-pixel-xs"
+                        className="pixel-border w-16 text-center text-pixel-sm"
                         disabled={isPlaying}
                     />
                 </div>
             </div>
 
             {/* 當前隊伍 */}
-            <div className="text-pixel-sm text-center mb-2">
+            <div className="text-pixel-base text-center mb-2">
                 輪到：<span className={currentTeam === 'A' ? 'text-pixel-blue' : 'text-pixel-green'}>
                     {currentTeam}隊
                 </span>
@@ -102,7 +98,7 @@ export default function Level3() {
                 {!isPlaying ? (
                     <button
                         onClick={handleStart}
-                        className="pixel-button text-pixel-sm bg-pixel-blue text-white"
+                        className="pixel-button bg-pixel-blue text-white"
                     >
                         ▶ 開始
                     </button>
@@ -110,7 +106,7 @@ export default function Level3() {
                     <>
                         <button
                             onClick={handleStop}
-                            className="pixel-button text-pixel-sm bg-gray-500 text-white"
+                            className="pixel-button bg-gray-500 text-white"
                         >
                             ⏸ 停止
                         </button>
@@ -122,7 +118,7 @@ export default function Level3() {
                                 setScore(3, winner)
                                 setIsPlaying(false)
                             }}
-                            className="pixel-button text-pixel-sm bg-pixel-red text-white"
+                            className="pixel-button bg-pixel-red text-white"
                         >
                             ✗ 失敗
                         </button>
@@ -131,7 +127,7 @@ export default function Level3() {
             </div>
 
             {/* 說明 */}
-            <div className="mt-2 text-pixel-xs text-center opacity-70">
+            <div className="mt-2 text-pixel-sm text-center opacity-70">
                 <p>跟著紅框移動,念出對應的動物名稱!</p>
             </div>
         </div>

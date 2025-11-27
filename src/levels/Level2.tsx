@@ -55,10 +55,6 @@ export default function Level2() {
 
     return (
         <div className="pixel-card max-w-3xl w-full">
-            <h2 className="text-pixel-lg text-center mb-2 text-pixel-green">
-                第二關：創意接龍
-            </h2>
-
             {/* 題目 */}
             <div className="pixel-border p-3 mb-2 bg-pixel-bg text-center">
                 <p className="text-pixel-sm mb-1">請造句：</p>
@@ -73,14 +69,14 @@ export default function Level2() {
                     </span>
                 </div>
                 <div className="flex items-center">
-                    <label className="text-pixel-xs mr-1">秒數:</label>
+                    <label className="text-pixel-sm mr-1">秒數:</label>
                     <input
                         type="text"
                         inputMode="numeric"
                         value={durationInput}
                         onChange={handleDurationChange}
                         onBlur={handleDurationBlur}
-                        className="pixel-border w-10 text-center text-pixel-xs"
+                        className="pixel-border w-16 text-center text-pixel-sm"
                         disabled={isActive}
                     />
                 </div>
@@ -101,7 +97,7 @@ export default function Level2() {
                 {!isActive ? (
                     <button
                         onClick={handleStart}
-                        className="pixel-button text-pixel-sm bg-pixel-blue text-white px-4 py-2"
+                        className="pixel-button bg-pixel-blue text-white px-4 py-2"
                     >
                         ▶ 開始
                     </button>
@@ -109,19 +105,19 @@ export default function Level2() {
                     <>
                         <button
                             onClick={handleStop}
-                            className="pixel-button text-pixel-sm bg-gray-500 text-white px-4 py-2"
+                            className="pixel-button bg-gray-500 text-white px-4 py-2"
                         >
                             ⏸ 停止
                         </button>
                         <button
                             onClick={handleFailA}
-                            className="pixel-button text-pixel-sm bg-pixel-red text-white px-4 py-2"
+                            className="pixel-button bg-pixel-red text-white px-4 py-2"
                         >
                             ✗ A隊答錯
                         </button>
                         <button
                             onClick={handleFailB}
-                            className="pixel-button text-pixel-sm bg-pixel-green text-white px-4 py-2"
+                            className="pixel-button bg-pixel-green text-white px-4 py-2"
                         >
                             ✗ B隊答錯
                         </button>
@@ -130,7 +126,7 @@ export default function Level2() {
             </div>
 
             {/* 說明 */}
-            <div className="mt-2 text-pixel-xs text-center opacity-70">
+            <div className="mt-2 text-pixel-sm text-center opacity-70">
                 <p>例如：一出門就下雨、一下雨就想睡</p>
                 <p className="mt-1">每{duration}秒自動換隊，裁判判定答錯</p>
             </div>

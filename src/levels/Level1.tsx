@@ -55,10 +55,6 @@ export default function Level1() {
 
     return (
         <div className="pixel-card max-w-3xl w-full">
-            <h2 className="text-pixel-lg text-center mb-2 text-pixel-blue">
-                第一關：照樣造句
-            </h2>
-
             {/* 題目 */}
             <div className="pixel-border p-3 mb-2 bg-pixel-bg text-center">
                 <p className="text-pixel-sm mb-1">請造句：</p>
@@ -73,14 +69,14 @@ export default function Level1() {
                     </span>
                 </div>
                 <div className="flex items-center">
-                    <label className="text-pixel-xs mr-1">秒數:</label>
+                    <label className="text-pixel-sm mr-1">秒數:</label>
                     <input
                         type="text"
                         inputMode="numeric"
                         value={durationInput}
                         onChange={handleDurationChange}
                         onBlur={handleDurationBlur}
-                        className="pixel-border w-10 text-center text-pixel-xs"
+                        className="pixel-border w-16 text-center text-pixel-sm"
                         disabled={isActive}
                     />
                 </div>
@@ -130,7 +126,7 @@ export default function Level1() {
             </div>
 
             {/* 說明 */}
-            <div className="mt-2 text-pixel-xs text-center opacity-70">
+            <div className="mt-2 text-pixel-sm text-center opacity-70">
                 <p>例如：進來出去、說來說去、飄來飛去</p>
                 <p className="mt-1">每{duration}秒自動換隊，裁判判定答錯</p>
             </div>
