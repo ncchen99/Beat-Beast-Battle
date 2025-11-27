@@ -4,7 +4,7 @@ export default function Footer() {
     const { currentLevel, setLevel, resetGame } = useGameStore()
 
     return (
-        <footer className="pixel-border bg-white p-2 shadow-pixel">
+        <footer className="pixel-border bg-white p-2 shadow-pixel mb-2">
             <div className="container mx-auto">
                 <div className="flex flex-wrap justify-center items-center gap-2">
                     {/* 上一關 */}

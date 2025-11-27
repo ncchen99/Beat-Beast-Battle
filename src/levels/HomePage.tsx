@@ -2,6 +2,7 @@ import { useGameStore } from '../store/gameStore'
 
 export default function HomePage() {
     const setLevel = useGameStore((state) => state.setLevel)
+    const resetGame = useGameStore((state) => state.resetGame)
 
     return (
         <div className="pixel-card max-w-2xl w-full text-center">
@@ -33,12 +34,21 @@ export default function HomePage() {
                 </div>
             </div>
 
-            <button
-                onClick={() => setLevel(1)}
-                className="pixel-button text-pixel-base bg-pixel-green text-white px-4 py-2"
-            >
-                開始遊戲 🎮
-            </button>
+            <div className="flex flex-row items-center justify-center gap-2">
+                <button
+                    onClick={() => setLevel(1)}
+                    className="pixel-button text-pixel-base bg-pixel-green text-white px-6 py-2"
+                >
+                    開始遊戲 🎮
+                </button>
+
+                <button
+                    onClick={resetGame}
+                    className="pixel-button text-pixel-base bg-pixel-red text-white px-6 py-2"
+                >
+                    🔄 重置遊戲紀錄
+                </button>
+            </div>
         </div>
     )
 }

@@ -9,7 +9,7 @@ export default function Header() {
     const teamBWins = Object.values(scores).filter((s) => s === 'B').length
 
     return (
-        <header className="pixel-border bg-white p-2 shadow-pixel">
+        <header className="pixel-border bg-white p-2 shadow-pixel mt-2">
             <div className="container mx-auto">
                 {/* 遊戲標題 - 只在首頁顯示 */}
                 {currentLevel === 0 && (

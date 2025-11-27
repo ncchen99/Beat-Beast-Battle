@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 
 export type Team = 'A' | 'B' | null
 
@@ -171,86 +172,98 @@ function generateSequenceWithAdjacentRepeats(pool: string[], length: number, min
     return sequence
 }
 
-export const useGameStore = create<GameState>((set) => ({
-    currentLevel: 0,
-    scores: initialScores,
-    rhythmState: initialRhythmState,
-    settings: initialSettings,
-
-    setLevel: (level) => set({ currentLevel: level }),
-
-    setScore: (level, winner) =>
-        set((state) => ({
-            scores: {
-                ...state.scores,
-                [`level${level}`]: winner,
-            },
-        })),
-
-    resetGame: () =>
-        set({
+export const useGameStore = create<GameState>()(
+    persist(
+        (set) => ({
             currentLevel: 0,
             scores: initialScores,
             rhythmState: initialRhythmState,
+            settings: initialSettings,
+
+            setLevel: (level) => set({ currentLevel: level }),
+
+            setScore: (level, winner) =>
+                set((state) => ({
+                    scores: {
+                        ...state.scores,
+                        [`level${level}`]: winner,
+                    },
+                })),
+
+            resetGame: () =>
+                set({
+                    currentLevel: 0,
+                    scores: initialScores,
+                    rhythmState: initialRhythmState,
+                }),
+
+            generateAnimalSequence: (allowRepeat, useRealPhotos, ensureAdjacent = false, minRepeats = 1, limitToAnimeAnimals = false) =>
+                set((state) => {
+                    // 決定動物池
+                    let animalPool = useRealPhotos ? REAL_ANIMALS : ANIME_ANIMALS
+
+                    // 如果是真實照片但限制為動畫動物種類 (Level 4)
+                    if (useRealPhotos && limitToAnimeAnimals) {
+                        // ANIME_ANIMALS 的名稱都在 REAL_ANIMALS 裡，直接用 ANIME_ANIMALS 的名稱列表即可
+                        // 因為 REAL_ANIMALS 包含了所有 ANIME_ANIMALS 的名稱
+                        animalPool = ANIME_ANIMALS
+                    }
+
+                    let sequence: string[]
+
+                    if (ensureAdjacent) {
+                        // 確保有相鄰重複的序列（第3、4、5關）
+                        sequence = generateSequenceWithAdjacentRepeats(animalPool, 8, minRepeats)
+                    } else if (allowRepeat) {
+                        // 可重複:隨機選8個
+                        sequence = Array.from({ length: 8 }, () =>
+                            animalPool[Math.floor(Math.random() * animalPool.length)]
+                        )
+                    } else {
+                        // 不重複:打亂順序取8個
+                        const shuffled = [...animalPool].sort(() => Math.random() - 0.5)
+                        sequence = shuffled.slice(0, 8)
+                    }
+
+                    return {
+                        rhythmState: {
+                            ...state.rhythmState,
+                            animalSequence: sequence,
+                        },
+                    }
+                }),
+
+            setRhythmState: (newState) =>
+                set((state) => ({
+                    rhythmState: {
+                        ...state.rhythmState,
+                        ...newState,
+                    },
+                })),
+
+            toggleBGM: () =>
+                set((state) => ({
+                    settings: {
+                        ...state.settings,
+                        bgmEnabled: !state.settings.bgmEnabled,
+                    },
+                })),
+
+            toggleSFX: () =>
+                set((state) => ({
+                    settings: {
+                        ...state.settings,
+                        sfxEnabled: !state.settings.sfxEnabled,
+                    },
+                })),
         }),
-
-    generateAnimalSequence: (allowRepeat, useRealPhotos, ensureAdjacent = false, minRepeats = 1, limitToAnimeAnimals = false) =>
-        set((state) => {
-            // 決定動物池
-            let animalPool = useRealPhotos ? REAL_ANIMALS : ANIME_ANIMALS
-
-            // 如果是真實照片但限制為動畫動物種類 (Level 4)
-            if (useRealPhotos && limitToAnimeAnimals) {
-                // ANIME_ANIMALS 的名稱都在 REAL_ANIMALS 裡，直接用 ANIME_ANIMALS 的名稱列表即可
-                // 因為 REAL_ANIMALS 包含了所有 ANIME_ANIMALS 的名稱
-                animalPool = ANIME_ANIMALS
-            }
-
-            let sequence: string[]
-
-            if (ensureAdjacent) {
-                // 確保有相鄰重複的序列（第3、4、5關）
-                sequence = generateSequenceWithAdjacentRepeats(animalPool, 8, minRepeats)
-            } else if (allowRepeat) {
-                // 可重複:隨機選8個
-                sequence = Array.from({ length: 8 }, () =>
-                    animalPool[Math.floor(Math.random() * animalPool.length)]
-                )
-            } else {
-                // 不重複:打亂順序取8個
-                const shuffled = [...animalPool].sort(() => Math.random() - 0.5)
-                sequence = shuffled.slice(0, 8)
-            }
-
-            return {
-                rhythmState: {
-                    ...state.rhythmState,
-                    animalSequence: sequence,
-                },
-            }
-        }),
-
-    setRhythmState: (newState) =>
-        set((state) => ({
-            rhythmState: {
-                ...state.rhythmState,
-                ...newState,
-            },
-        })),
-
-    toggleBGM: () =>
-        set((state) => ({
-            settings: {
-                ...state.settings,
-                bgmEnabled: !state.settings.bgmEnabled,
-            },
-        })),
-
-    toggleSFX: () =>
-        set((state) => ({
-            settings: {
-                ...state.settings,
-                sfxEnabled: !state.settings.sfxEnabled,
-            },
-        })),
-}))
+        {
+            name: 'game-storage', // localStorage key
+            partialize: (state) => ({
+                currentLevel: state.currentLevel,
+                scores: state.scores,
+                // 不保存 rhythmState 和 settings 因為遊戲狀態不需要持久化
+            }),
+        }
+    )
+)
