@@ -9,9 +9,10 @@ interface RhythmGridProps {
     useRealPhotos: boolean
     onMusicStart?: () => void
     bpm?: number
+    showPhaseText?: boolean
 }
 
-export default function RhythmGrid({ animals, isPlaying, useRealPhotos, onMusicStart, bpm = 195 }: RhythmGridProps) {
+export default function RhythmGrid({ animals, isPlaying, useRealPhotos, onMusicStart, bpm = 195, showPhaseText = true }: RhythmGridProps) {
     const { rhythmState, setRhythmState } = useGameStore()
     const intervalRef = useRef<number | null>(null)
     const audioRef = useRef<HTMLAudioElement>(null)
@@ -121,17 +122,19 @@ export default function RhythmGrid({ animals, isPlaying, useRealPhotos, onMusicS
             />
 
             {/* 階段提示 */}
-            <div className="text-pixel-base text-center mb-2 h-4">
-                {isPlaying && (
-                    <span className={
-                        rhythmState.phase === 'play'
-                            ? 'text-pixel-red'
-                            : 'text-pixel-blue'
-                    }>
-                        {getPhaseText()}
-                    </span>
-                )}
-            </div>
+            {showPhaseText && (
+                <div className="text-pixel-base text-center mb-2 h-4">
+                    {isPlaying && (
+                        <span className={
+                            rhythmState.phase === 'play'
+                                ? 'text-pixel-red'
+                                : 'text-pixel-blue'
+                        }>
+                            {getPhaseText()}
+                        </span>
+                    )}
+                </div>
+            )}
 
             {/* 8格動物網格 */}
             <div className="animal-grid relative">
@@ -154,12 +157,7 @@ export default function RhythmGrid({ animals, isPlaying, useRealPhotos, onMusicS
                 ))}
             </div>
 
-            {/* 節拍計數器 */}
-            {isPlaying && (
-                <div className="text-pixel-xs text-center mt-1 opacity-50">
-                    節拍: {rhythmState.currentBeat} / 16
-                </div>
-            )}
+
         </div>
     )
 }

@@ -58,6 +58,18 @@ export default function Level3() {
         setBpmInput(num.toString())
     }
 
+    // 階段提示文字
+    const getPhaseText = () => {
+        switch (rhythmState.phase) {
+            case 'prepare':
+                return '換人準備...'
+            case 'play':
+                return '開始! 跟著念!'
+            default:
+                return ''
+        }
+    }
+
     return (
         <div className="pixel-card max-w-4xl w-full">
             <div className="flex justify-center items-center gap-4 mb-2">
@@ -78,19 +90,31 @@ export default function Level3() {
                 </div>
             </div>
 
-            {/* 當前隊伍 */}
-            <div className="text-pixel-base text-center mb-2">
-                輪到：<span className={currentTeam === 'A' ? 'text-pixel-blue' : 'text-pixel-green'}>
-                    {currentTeam}隊
+            {/* 當前隊伍與階段提示 */}
+            <div className="flex justify-center items-center gap-3 text-pixel-base mb-2">
+                <span>
+                    輪到：<span className={currentTeam === 'A' ? 'text-pixel-blue' : 'text-pixel-green'}>
+                        {currentTeam}隊
+                    </span>
                 </span>
+                {isPlaying && (
+                    <span className={
+                        rhythmState.phase === 'play'
+                            ? 'text-pixel-red font-bold'
+                            : 'text-pixel-blue font-bold'
+                    }>
+                        {getPhaseText()}
+                    </span>
+                )}
             </div>
 
-            {/* 節奏網格 */}
+            {/* 節奏網格 - 隱藏內部的階段提示 */}
             <RhythmGrid
                 animals={rhythmState.animalSequence}
                 isPlaying={isPlaying}
                 useRealPhotos={false}
                 bpm={bpm}
+                showPhaseText={false}
             />
 
             {/* 控制按鈕 */}
