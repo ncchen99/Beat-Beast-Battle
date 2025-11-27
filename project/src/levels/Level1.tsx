@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useGameStore } from '../store/gameStore'
 import Timer from '../components/game/Timer'
 
