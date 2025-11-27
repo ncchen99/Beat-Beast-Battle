@@ -83,10 +83,12 @@ npm run build
 ## 📝 專案結構
 
 ```
-src/
-├── assets/         # 靜態資源 (圖片、音樂)
-├── components/     # 共用組件 (Timer, RhythmGrid, Layout)
-├── levels/         # 各關卡邏輯 (Level1 - Level5)
-├── store/          # 全局狀態管理 (gameStore)
-└── index.css       # 全局樣式與 Tailwind 設定
+project/
+├── public/         # 靜態資源 (圖片、音樂、字體)
+├── src/
+│   ├── components/     # 共用組件 (Timer, RhythmGrid, Layout)
+│   ├── levels/         # 各關卡邏輯 (Level1 - Level5)
+│   ├── store/          # 全局狀態管理 (gameStore)
+│   └── index.css       # 全局樣式與 Tailwind 設定
+└── ...
 ```
